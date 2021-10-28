@@ -27,7 +27,9 @@
               md="3"
           >
             <h2>Slab dimensions</h2>
-            <v-form>
+            <v-form
+              @submit.prevent="onFormSubmit"
+            >
               <v-text-field
                   v-model="width"
                   label="Width"
@@ -49,6 +51,12 @@
                   dark
                   required
               ></v-text-field>
+              <v-btn
+                type="submit"
+                color="primary"
+              >
+                Generate
+              </v-btn>
             </v-form>
           </v-col>
           <v-col
@@ -79,7 +87,7 @@ export default {
   }),
   methods: {
     onFormSubmit() {
-      console.log('submitted');
+      console.log(this.width, this.length, this.height);
     },
   },
 }
