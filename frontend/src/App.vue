@@ -31,21 +31,21 @@
               @submit.prevent="onFormSubmit"
             >
               <v-text-field
-                  v-model="width"
+                  v-model.number="width"
                   label="Width"
                   type="number"
                   dark
                   required
               ></v-text-field>
               <v-text-field
-                  v-model="length"
+                  v-model.number="length"
                   label="Length"
                   type="number"
                   dark
                   required
               ></v-text-field>
               <v-text-field
-                  v-model="height"
+                  v-model.number="height"
                   label="Height"
                   type="number"
                   dark
