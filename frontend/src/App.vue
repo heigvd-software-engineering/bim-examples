@@ -20,6 +20,47 @@
     </v-app-bar>
 
     <v-main>
+      <v-form>
+        <v-container>
+          <v-row>
+            <v-col
+                cols="12"
+                md="4"
+            >
+              <v-text-field
+                  v-model="width"
+                  label="Width"
+                  type="number"
+                  required
+              ></v-text-field>
+            </v-col>
+
+            <v-col
+                cols="12"
+                md="4"
+            >
+              <v-text-field
+                  v-model="length"
+                  label="Length"
+                  type="number"
+                  required
+              ></v-text-field>
+            </v-col>
+
+            <v-col
+                cols="12"
+                md="4"
+            >
+              <v-text-field
+                  v-model="height"
+                  label="Height"
+                  type="number"
+                  required
+              ></v-text-field>
+            </v-col>
+          </v-row>
+        </v-container>
+      </v-form>
       <IFCViewer />
     </v-main>
   </v-app>
@@ -32,6 +73,16 @@ export default {
   name: 'App',
   components: {
     IFCViewer,
-  }
+  },
+  data: () => ({
+    width: 300,
+    length: 400,
+    height: 50,
+  }),
+  methods: {
+    onFormSubmit() {
+      console.log('submitted');
+    },
+  },
 }
 </script>
