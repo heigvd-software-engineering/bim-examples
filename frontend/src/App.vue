@@ -20,48 +20,42 @@
     </v-app-bar>
 
     <v-main>
-      <v-form>
-        <v-container>
-          <v-row>
-            <v-col
-                cols="12"
-                md="4"
-            >
+      <v-container class="fill-height">
+        <v-row class="fill-height">
+          <v-col
+              cols="12"
+              md="3"
+          >
+            <h2>Slab dimensions</h2>
+            <v-form>
               <v-text-field
                   v-model="width"
                   label="Width"
                   type="number"
                   required
               ></v-text-field>
-            </v-col>
-
-            <v-col
-                cols="12"
-                md="4"
-            >
               <v-text-field
                   v-model="length"
                   label="Length"
                   type="number"
                   required
               ></v-text-field>
-            </v-col>
-
-            <v-col
-                cols="12"
-                md="4"
-            >
               <v-text-field
                   v-model="height"
                   label="Height"
                   type="number"
                   required
-              ></v-text-field>
-            </v-col>
-          </v-row>
-        </v-container>
-      </v-form>
-      <IFCViewer />
+                    ></v-text-field>
+            </v-form>
+          </v-col>
+          <v-col
+              cols="12"
+              md="9"
+          >
+            <IFCViewer />
+          </v-col>
+        </v-row>
+      </v-container>
     </v-main>
   </v-app>
 </template>
