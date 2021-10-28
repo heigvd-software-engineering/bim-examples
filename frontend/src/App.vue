@@ -1,5 +1,5 @@
 <template>
-  <v-app>
+  <v-app id="app">
     <v-app-bar
       app
       color="primary"
@@ -32,25 +32,29 @@
                   v-model="width"
                   label="Width"
                   type="number"
+                  dark
                   required
               ></v-text-field>
               <v-text-field
                   v-model="length"
                   label="Length"
                   type="number"
+                  dark
                   required
               ></v-text-field>
               <v-text-field
                   v-model="height"
                   label="Height"
                   type="number"
+                  dark
                   required
-                    ></v-text-field>
+              ></v-text-field>
             </v-form>
           </v-col>
           <v-col
               cols="12"
               md="9"
+              style="background-color: #333333"
           >
             <IFCViewer />
           </v-col>
@@ -80,3 +84,13 @@ export default {
   },
 }
 </script>
+
+<style>
+#app {
+  background-color: #121212;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: rgba(255, 255, 255, 0.7);
+}
+</style>
