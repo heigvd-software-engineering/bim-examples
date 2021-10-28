@@ -11,14 +11,19 @@ import {
     OrbitControls
 } from "three/examples/jsm/controls/OrbitControls";
 
-export function createScene() {
+/**
+ * Creates a 3D scene
+ * @param {HTMLCanvasElement} domCanvas
+ * @return {Scene}
+ */
+export function createScene(domCanvas) {
     //Creates the Three.js scene
     const scene = new Scene();
 
     //Object to store the size of the viewport
     const size = {
-        width: window.innerWidth,
-        height: window.innerHeight,
+        width: domCanvas.clientWidth,
+        height: domCanvas.clientHeight,
     };
 
     //Creates the camera (point of view of the user)
@@ -41,9 +46,8 @@ export function createScene() {
     scene.add(directionalLight.target);
 
     //Sets up the renderer, fetching the canvas of the HTML
-    const threeCanvas = document.getElementById("three-canvas");
     const renderer = new WebGLRenderer({
-        canvas: threeCanvas,
+        canvas: domCanvas,
         alpha: true
     });
 
@@ -60,7 +64,7 @@ export function createScene() {
     scene.add(axes);
 
     //Creates the orbit controls (to navigate the scene)
-    const controls = new OrbitControls(camera, threeCanvas);
+    const controls = new OrbitControls(camera, domCanvas);
     controls.enableDamping = true;
     controls.target.set(-2, 0, 0);
 
