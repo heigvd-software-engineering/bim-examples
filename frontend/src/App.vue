@@ -36,6 +36,7 @@
                   type="number"
                   dark
                   required
+                  @focus="onTextFieldNumberFocus"
               ></v-text-field>
               <v-text-field
                   v-model.number="length"
@@ -43,6 +44,7 @@
                   type="number"
                   dark
                   required
+                  @click="onTextFieldNumberFocus"
               ></v-text-field>
               <v-text-field
                   v-model.number="height"
@@ -50,6 +52,7 @@
                   type="number"
                   dark
                   required
+                  @click="onTextFieldNumberFocus"
               ></v-text-field>
               <v-btn
                 type="submit"
@@ -88,6 +91,12 @@ export default {
   methods: {
     onFormSubmit() {
       console.log(this.width, this.length, this.height);
+    },
+    onTextFieldNumberFocus(event) {
+      this.selectInputText(event);
+    },
+    selectInputText(event) {
+      event.target.select();
     },
   },
 }
