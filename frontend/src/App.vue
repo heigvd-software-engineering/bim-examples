@@ -20,7 +20,6 @@
     </v-app-bar>
 
     <v-main>
-      <img alt="Vue logo" src="./assets/logo.png">
       <IFCViewer />
     </v-main>
   </v-app>
