@@ -1,5 +1,5 @@
 <template>
-<div>
+<div class="fill-height">
   <input
       type="file"
       name="load"
@@ -41,8 +41,9 @@ export default {
 
 <style scoped>
 #scene3d {
-  width: 700px;
-  height: 700px;
+  width: 100%;
+  height: 100%;
+  display: block;
 }
 
 .file-input {
