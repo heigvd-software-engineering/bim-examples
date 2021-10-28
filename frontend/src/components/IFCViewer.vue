@@ -3,10 +3,10 @@
   <input
       type="file"
       name="load"
-      id="file-input"
+      class="file-input"
       @change="onIfcFileInputChange"
   />
-  <canvas id="three-canvas"></canvas>
+  <canvas id="scene3d" ref="scene3d"></canvas>
 </div>
 </template>
 
@@ -22,7 +22,7 @@ export default {
   }),
   methods: {
     createScene() {
-      this.scene = createScene();
+      this.scene = createScene(this.$refs.scene3d);
     },
     onIfcFileInputChange(changed) {
       const [ file ] = changed.target.files;
@@ -40,25 +40,12 @@ export default {
 </script>
 
 <style scoped>
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+#scene3d {
+  width: 700px;
+  height: 700px;
 }
 
-html,
-body {
-  overflow: hidden;
-}
-
-#three-canvas {
-  position: fixed;
-  top: 0;
-  left: 0;
-  outline: none;
-}
-
-#file-input {
+.file-input {
   z-index: 1;
   position: absolute;
 }
