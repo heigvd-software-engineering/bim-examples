@@ -12,6 +12,7 @@
     "three": "^0.133.1",
     "vue": "^2.6.11",
     "vuetify": "^2.4.0",
+    "web-ifc": "0.0.29",
     "web-ifc-three": "0.0.68"
   },
   "devDependencies": {
