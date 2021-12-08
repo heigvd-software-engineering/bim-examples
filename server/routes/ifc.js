@@ -1,5 +1,5 @@
-const express = require("express");
-const {ifcWriter} = require("../services/ifc/ifcWriter");
+import express from "express";
+import { ifcWriter } from "../services/ifc/ifcWriter.js";
 
 const router = express.Router();
 
@@ -10,4 +10,4 @@ router.get('/', (req, res, next) => {
   res.send(ifcString);
 });
 
-module.exports = router;
+export default router;

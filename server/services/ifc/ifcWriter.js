@@ -1,13 +1,16 @@
-const WebIFC = require("web-ifc/web-ifc-api.js");
+import WebIFC from "web-ifc";
 const {
-    IfcAPI, IFCAXIS2PLACEMENT2D, IfcAxis2Placement2D,
-    IFCAXIS2PLACEMENT3D,
-    IfcAxis2Placement3D,
-    IFCCARTESIANPOINT,
-    IfcCartesianPoint, IFCCIRCLEPROFILEDEF, IfcCircleProfileDef, IFCCOLUMN, IfcColumn,
-    IFCDIRECTION,
-    IfcDirection, IfcExtrudedAreaSolid, IFCEXTRUDEDAREASOLID, IFCLOCALPLACEMENT, IfcLocalPlacement, IfcProfileTypeEnum
-} = require("web-ifc");
+    IfcAxis2Placement2D, IFCAXIS2PLACEMENT2D,
+    IfcAxis2Placement3D, IFCAXIS2PLACEMENT3D,
+    IfcCartesianPoint, IFCCARTESIANPOINT,
+    IfcCircleProfileDef, IFCCIRCLEPROFILEDEF,
+    IfcColumn, IFCCOLUMN,
+    IfcDirection, IFCDIRECTION,
+    IFCEXTRUDEDAREASOLID, IfcExtrudedAreaSolid,
+    IfcLocalPlacement, IFCLOCALPLACEMENT,
+    IfcProfileTypeEnum
+} = WebIFC;
+
 
 let EID = 1;
 
