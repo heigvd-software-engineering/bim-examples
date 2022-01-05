@@ -61,6 +61,14 @@
                 Generate
               </v-btn>
             </v-form>
+
+            <v-btn
+                class="my-3"
+                color="warning"
+                @click="onLogIFCClick"
+            >
+              Log IFC
+            </v-btn>
           </v-col>
           <v-col
               cols="12"
