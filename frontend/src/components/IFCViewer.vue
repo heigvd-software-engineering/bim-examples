@@ -14,7 +14,7 @@
 import { IFCLoader } from 'web-ifc-three/IFCLoader';
 import { createScene } from '@/components/ifcScripts';
 import { ifcWriter } from '@/services/ifcWriter';
-import WebIFC from "web-ifc";
+import WebIFC from 'web-ifc';
 
 export default {
   name: "IFCViewer",
