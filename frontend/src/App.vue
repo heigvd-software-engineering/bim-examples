@@ -84,7 +84,9 @@
 </template>
 
 <script>
+import WebIFC from 'web-ifc';
 import IFCViewer from './components/IFCViewer.vue'
+import { ifcWriter } from '@/services/ifcWriter';
 
 export default {
   name: 'App',
@@ -102,6 +104,13 @@ export default {
     },
     onTextFieldNumberFocus(event) {
       this.selectInputText(event);
+    },
+    async onLogIFCClick() {
+      const ifcApi = new WebIFC.IfcAPI();
+
+      // initialize the library
+      await ifcApi.Init();
+      ifcWriter.writeIFC(ifcApi);
     },
     selectInputText(event) {
       event.target.select();

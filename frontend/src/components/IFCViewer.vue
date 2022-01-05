@@ -13,8 +13,6 @@
 <script>
 import { IFCLoader } from 'web-ifc-three/IFCLoader';
 import { createScene } from '@/components/ifcScripts';
-import { ifcWriter } from '@/services/ifcWriter';
-import WebIFC from 'web-ifc';
 
 export default {
   name: "IFCViewer",
@@ -32,14 +30,6 @@ export default {
       this.ifcLoader.load(
           ifcURL,
           (ifcModel) => this.scene.add(ifcModel.mesh));
-    },
-    async logIFC() {
-      const ifcApi = new WebIFC.IfcAPI();
-
-      // initialize the library
-      await ifcApi.Init();
-      ifcWriter.writeIFC(ifcApi);
-
     },
   },
   async mounted() {
