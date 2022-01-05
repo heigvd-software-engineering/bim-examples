@@ -1,4 +1,4 @@
-import WebIFC from "web-ifc";
+import * as WebIFC from 'web-ifc';
 
 let EID = 1;
 
