@@ -33,16 +33,18 @@ export default {
           ifcURL,
           (ifcModel) => this.scene.add(ifcModel.mesh));
     },
+    async logIFC() {
+      const ifcApi = new WebIFC.IfcAPI();
+
+      // initialize the library
+      await ifcApi.Init();
+      ifcWriter.writeIFC(ifcApi);
+
+    },
   },
   async mounted() {
     this.ifcLoader.ifcManager.setWasmPath('../files/')
     this.createScene();
-
-    const ifcApi = new WebIFC.IfcAPI();
-
-    // initialize the library
-    await ifcApi.Init();
-    ifcWriter.writeIFC(ifcApi);
   },
 }
 </script>
