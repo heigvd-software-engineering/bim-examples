@@ -5,6 +5,11 @@
 npm install
 ```
 
+### Copies necessary files from web-ifc installed dependencies
+```
+npm run preserve
+```
+
 ### Compiles and hot-reloads for development
 ```
 npm run serve
