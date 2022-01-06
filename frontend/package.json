@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "preserve": "cp ./node_modules/web-ifc-three/node_modules/web-ifc/web-ifc.wasm ./public/files/",
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint"
