@@ -1,4 +1,8 @@
 # Frontend
+This folder contains a Vue app that contains an 3D viewer for IFC files.
+
+## Current goal
+The current goal is to be able to log an IFC file structure created from scratch with IFCjs.
 
 ## Project setup
 ```
