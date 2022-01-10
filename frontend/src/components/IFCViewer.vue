@@ -41,12 +41,20 @@ export default {
       await ifcApi.Init();
       this.ifcString = ifcWriter.writeIFC(ifcApi);
     },
+    renderIfcStructure() {
+      const ifcBlob = new Blob([this.ifcString], {type: 'text/plain'});
+      const ifcURL = URL.createObjectURL(ifcBlob);
+      this.ifcLoader.load(
+          ifcURL,
+          (ifcModel) => this.scene.add(ifcModel.mesh)
+      );
+    },
   },
   async mounted() {
     this.ifcLoader.ifcManager.setWasmPath('../files/')
     this.createScene();
     await this.generateIfcStructure();
-    console.log(this.ifcString);
+    this.renderIfcStructure();
   },
 }
 </script>
