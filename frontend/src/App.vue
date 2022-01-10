@@ -100,6 +100,7 @@ export default {
   name: 'App',
   data: () => ({
     ifcLoader: new IFCLoader(),
+    ifcApi: new IFCLoader().ifcManager.ifcAPI,
     scene: null,
     ifcString: '',
     width: 300,
@@ -129,12 +130,9 @@ export default {
           (ifcModel) => this.scene.add(ifcModel.mesh));
     },
     async generateIfcStructure(columnQuantity) {
-      const ifcApi = new IFCLoader().ifcManager.ifcAPI;
-      ifcApi.SetWasmPath('../files/');
-
       // initialize the library
-      await ifcApi.Init();
-      this.ifcString = ifcWriter.writeIFC(ifcApi, columnQuantity);
+      await this.ifcApi.Init();
+      this.ifcString = ifcWriter.writeIFC(this.ifcApi, columnQuantity);
     },
     renderIfcStructure() {
       const ifcBlob = new Blob([this.ifcString], {type: 'text/plain'});
@@ -146,8 +144,10 @@ export default {
     },
   },
   mounted() {
-    this.ifcLoader.ifcManager.setWasmPath('../files/')
+    const wasmPath = '../files/';
+    this.ifcLoader.ifcManager.setWasmPath(wasmPath)
     this.createScene();
+    this.ifcApi.SetWasmPath(wasmPath)
   },
 }
 </script>
