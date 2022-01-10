@@ -111,7 +111,7 @@ export default {
 
       // initialize the library
       await ifcApi.Init();
-      ifcWriter.writeIFC(ifcApi);
+      console.log(ifcWriter.writeIFC(ifcApi));
     },
     selectInputText(event) {
       event.target.select();

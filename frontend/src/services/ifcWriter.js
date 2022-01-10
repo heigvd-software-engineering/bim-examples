@@ -160,32 +160,16 @@ function BuildModel(model, api)
 }
 
 function writeIFC(ifcAPI) {
-    console.log('begin');
-    // const ifcAPI = new WebIFC.IfcAPI();
-    console.log('init');
-    // ifcAPI.Init();
-    console.log('setwasmpath');
-    // ifcAPI.SetWasmPath('./wasm');
-
-    console.log("Creating model...");
-
     const model = ifcAPI.CreateModel({
         COORDINATE_TO_ORIGIN: true,
         USE_FAST_BOOLS: true,
     });
 
-    console.log("Building model...");
     BuildModel(model, ifcAPI);
-
-    console.log(model)
 
     const ifcData = ifcAPI.ExportFileAsIFC(model);
     ifcAPI.CloseModel(model);
-    const ifcDataString = new TextDecoder().decode(ifcData);
-
-    console.log(ifcDataString);
-
-    return ifcDataString;
+    return new TextDecoder().decode(ifcData);
 }
 
 export const ifcWriter = {
