@@ -75,7 +75,7 @@
               md="9"
               style="background-color: #333333"
           >
-            <IFCViewer />
+            <IFCViewer ifc-string="ifcString" />
           </v-col>
         </v-row>
       </v-container>
@@ -97,6 +97,7 @@ export default {
     width: 300,
     length: 400,
     height: 50,
+    ifcString: '',
   }),
   methods: {
     onFormSubmit() {
@@ -111,7 +112,8 @@ export default {
 
       // initialize the library
       await ifcApi.Init();
-      console.log(ifcWriter.writeIFC(ifcApi));
+      this.ifcString = ifcWriter.writeIFC(ifcApi);
+      console.log(this.ifcString);
     },
     selectInputText(event) {
       event.target.select();
