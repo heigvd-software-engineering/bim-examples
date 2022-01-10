@@ -57,6 +57,7 @@
               <v-btn
                 type="submit"
                 color="primary"
+                @click="onGenerateButtonClick"
               >
                 Generate
               </v-btn>
@@ -134,12 +135,14 @@ export default {
           (ifcModel) => this.scene.add(ifcModel.mesh)
       );
     },
+    onGenerateButtonClick() {
+      this.renderIfcStructure();
+    },
   },
   async mounted() {
     this.ifcLoader.ifcManager.setWasmPath('../files/')
     this.createScene();
     await this.generateIfcStructure();
-    this.renderIfcStructure();
   },
 }
 </script>
