@@ -1,4 +1,4 @@
-import * as WebIFC from 'web-ifc';
+import * as WebIFC from 'web-ifc-three/node_modules/web-ifc';
 
 let EID = 1;
 

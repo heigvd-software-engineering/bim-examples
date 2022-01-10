@@ -84,7 +84,7 @@
 </template>
 
 <script>
-import * as WebIFC from 'web-ifc';
+import { IFCLoader } from 'web-ifc-three/IFCLoader';
 import IFCViewer from './components/IFCViewer.vue'
 import { ifcWriter } from '@/services/ifcWriter';
 
@@ -106,7 +106,8 @@ export default {
       this.selectInputText(event);
     },
     async onLogIFCClick() {
-      const ifcApi = new WebIFC.IfcAPI();
+      const ifcApi = new IFCLoader().ifcManager.ifcAPI;
+      ifcApi.SetWasmPath('../files/');
 
       // initialize the library
       await ifcApi.Init();
