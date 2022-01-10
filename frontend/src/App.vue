@@ -106,19 +106,25 @@ export default {
     onTextFieldNumberFocus(event) {
       this.selectInputText(event);
     },
-    async onLogIFCClick() {
+    async generateIfcStructure() {
       const ifcApi = new IFCLoader().ifcManager.ifcAPI;
       ifcApi.SetWasmPath('../files/');
 
       // initialize the library
       await ifcApi.Init();
       this.ifcString = ifcWriter.writeIFC(ifcApi);
+    },
+    async onLogIFCClick() {
+      await this.generateIfcStructure();
       console.log(this.ifcString);
     },
     selectInputText(event) {
       event.target.select();
     },
   },
+  async created() {
+    await this.generateIfcStructure();
+  }
 }
 </script>
 
