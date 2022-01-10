@@ -13,12 +13,14 @@
 <script>
 import { IFCLoader } from 'web-ifc-three/IFCLoader';
 import { createScene } from '@/components/ifcScripts';
+import {ifcWriter} from "@/services/ifcWriter";
 
 export default {
   name: "IFCViewer",
   data: () => ({
     ifcLoader: new IFCLoader(),
     scene: null,
+    ifcString: '',
   }),
   methods: {
     createScene() {
@@ -31,10 +33,20 @@ export default {
           ifcURL,
           (ifcModel) => this.scene.add(ifcModel.mesh));
     },
+    async generateIfcStructure() {
+      const ifcApi = new IFCLoader().ifcManager.ifcAPI;
+      ifcApi.SetWasmPath('../files/');
+
+      // initialize the library
+      await ifcApi.Init();
+      this.ifcString = ifcWriter.writeIFC(ifcApi);
+    },
   },
   async mounted() {
     this.ifcLoader.ifcManager.setWasmPath('../files/')
     this.createScene();
+    await this.generateIfcStructure();
+    console.log(this.ifcString);
   },
 }
 </script>

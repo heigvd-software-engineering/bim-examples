@@ -61,21 +61,13 @@
                 Generate
               </v-btn>
             </v-form>
-
-            <v-btn
-                class="my-3"
-                color="warning"
-                @click="onLogIFCClick"
-            >
-              Log IFC
-            </v-btn>
           </v-col>
           <v-col
               cols="12"
               md="9"
               style="background-color: #333333"
           >
-            <IFCViewer ifc-string="ifcString" />
+            <IFCViewer />
           </v-col>
         </v-row>
       </v-container>
@@ -84,9 +76,7 @@
 </template>
 
 <script>
-import { IFCLoader } from 'web-ifc-three/IFCLoader';
 import IFCViewer from './components/IFCViewer.vue'
-import { ifcWriter } from '@/services/ifcWriter';
 
 export default {
   name: 'App',
@@ -97,7 +87,6 @@ export default {
     width: 300,
     length: 400,
     height: 50,
-    ifcString: '',
   }),
   methods: {
     onFormSubmit() {
@@ -106,25 +95,10 @@ export default {
     onTextFieldNumberFocus(event) {
       this.selectInputText(event);
     },
-    async generateIfcStructure() {
-      const ifcApi = new IFCLoader().ifcManager.ifcAPI;
-      ifcApi.SetWasmPath('../files/');
-
-      // initialize the library
-      await ifcApi.Init();
-      this.ifcString = ifcWriter.writeIFC(ifcApi);
-    },
-    async onLogIFCClick() {
-      await this.generateIfcStructure();
-      console.log(this.ifcString);
-    },
     selectInputText(event) {
       event.target.select();
     },
   },
-  async created() {
-    await this.generateIfcStructure();
-  }
 }
 </script>
 
