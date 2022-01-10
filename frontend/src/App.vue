@@ -67,7 +67,15 @@
               md="9"
               style="background-color: #333333"
           >
-            <IFCViewer />
+            <div class="fill-height">
+              <input
+                  type="file"
+                  name="load"
+                  class="file-input"
+                  @change="onIfcFileInputChange"
+              />
+              <canvas id="scene3d" ref="scene3d"></canvas>
+            </div>
           </v-col>
         </v-row>
       </v-container>
@@ -76,14 +84,16 @@
 </template>
 
 <script>
-import IFCViewer from './components/IFCViewer.vue'
+import { IFCLoader } from "web-ifc-three/IFCLoader";
+import { createScene } from "@/ifcScripts";
+import { ifcWriter } from "@/services/ifcWriter";
 
 export default {
   name: 'App',
-  components: {
-    IFCViewer,
-  },
   data: () => ({
+    ifcLoader: new IFCLoader(),
+    scene: null,
+    ifcString: '',
     width: 300,
     length: 400,
     height: 50,
@@ -98,6 +108,38 @@ export default {
     selectInputText(event) {
       event.target.select();
     },
+    createScene() {
+      this.scene = createScene(this.$refs.scene3d);
+    },
+    onIfcFileInputChange(changed) {
+      const [ file ] = changed.target.files;
+      const ifcURL = URL.createObjectURL(file);
+      this.ifcLoader.load(
+          ifcURL,
+          (ifcModel) => this.scene.add(ifcModel.mesh));
+    },
+    async generateIfcStructure() {
+      const ifcApi = new IFCLoader().ifcManager.ifcAPI;
+      ifcApi.SetWasmPath('../files/');
+
+      // initialize the library
+      await ifcApi.Init();
+      this.ifcString = ifcWriter.writeIFC(ifcApi);
+    },
+    renderIfcStructure() {
+      const ifcBlob = new Blob([this.ifcString], {type: 'text/plain'});
+      const ifcURL = URL.createObjectURL(ifcBlob);
+      this.ifcLoader.load(
+          ifcURL,
+          (ifcModel) => this.scene.add(ifcModel.mesh)
+      );
+    },
+  },
+  async mounted() {
+    this.ifcLoader.ifcManager.setWasmPath('../files/')
+    this.createScene();
+    await this.generateIfcStructure();
+    this.renderIfcStructure();
   },
 }
 </script>
@@ -109,5 +151,16 @@ export default {
 
 h1, h2, h3, h4, h5, h6 {
   color: rgba(255, 255, 255, 0.7);
+}
+
+#scene3d {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.file-input {
+  z-index: 1;
+  position: absolute;
 }
 </style>
