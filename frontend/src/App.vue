@@ -85,7 +85,7 @@
 
 <script>
 import { IFCLoader } from "web-ifc-three/IFCLoader";
-import { createScene } from "@/ifcScripts";
+import { createScene } from "@/services/ifcScripts";
 import { ifcWriter } from "@/services/ifcWriter";
 
 export default {
