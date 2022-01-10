@@ -136,7 +136,7 @@ export default {
       await ifcApi.Init();
       this.ifcString = ifcWriter.writeIFC(ifcApi, columnQuantity);
     },
-    async renderIfcStructure() {
+    renderIfcStructure() {
       const ifcBlob = new Blob([this.ifcString], {type: 'text/plain'});
       const ifcURL = URL.createObjectURL(ifcBlob);
       this.ifcLoader.load(
