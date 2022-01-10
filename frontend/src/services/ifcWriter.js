@@ -144,11 +144,11 @@ function StandardColumn(model, api, pos)
     return ref(ID);
 }
 
-function BuildModel(model, api)
+function BuildModel(model, columnQuantity, api)
 {
     console.log("Building model " + model);
 
-    const gridSize = 6;
+    const gridSize = columnQuantity;
 
     for (let i = 0; i < gridSize; i++)
     {
@@ -159,13 +159,13 @@ function BuildModel(model, api)
     }
 }
 
-function writeIFC(ifcAPI) {
+function writeIFC(ifcAPI, columnQuantity) {
     const model = ifcAPI.CreateModel({
         COORDINATE_TO_ORIGIN: true,
         USE_FAST_BOOLS: true,
     });
 
-    BuildModel(model, ifcAPI);
+    BuildModel(model, columnQuantity, ifcAPI);
 
     const ifcData = ifcAPI.ExportFileAsIFC(model);
     ifcAPI.CloseModel(model);

@@ -54,6 +54,14 @@
                   required
                   @click="onTextFieldNumberFocus"
               ></v-text-field>
+              <v-text-field
+                  v-model.number="columnCount"
+                  label="Column count"
+                  type="number"
+                  dark
+                  required
+                  @click="onTextFieldNumberFocus"
+              ></v-text-field>
               <v-btn
                 type="submit"
                 color="primary"
@@ -97,9 +105,11 @@ export default {
     width: 300,
     length: 400,
     height: 50,
+    columnCount: 3,
   }),
   methods: {
-    onFormSubmit() {
+    async onFormSubmit() {
+      await this.generateIfcStructure(this.columnCount);
       this.renderIfcStructure();
     },
     onTextFieldNumberFocus(event) {
@@ -118,15 +128,15 @@ export default {
           ifcURL,
           (ifcModel) => this.scene.add(ifcModel.mesh));
     },
-    async generateIfcStructure() {
+    async generateIfcStructure(columnQuantity) {
       const ifcApi = new IFCLoader().ifcManager.ifcAPI;
       ifcApi.SetWasmPath('../files/');
 
       // initialize the library
       await ifcApi.Init();
-      this.ifcString = ifcWriter.writeIFC(ifcApi);
+      this.ifcString = ifcWriter.writeIFC(ifcApi, columnQuantity);
     },
-    renderIfcStructure() {
+    async renderIfcStructure() {
       const ifcBlob = new Blob([this.ifcString], {type: 'text/plain'});
       const ifcURL = URL.createObjectURL(ifcBlob);
       this.ifcLoader.load(
@@ -135,10 +145,9 @@ export default {
       );
     },
   },
-  async mounted() {
+  mounted() {
     this.ifcLoader.ifcManager.setWasmPath('../files/')
     this.createScene();
-    await this.generateIfcStructure();
   },
 }
 </script>
