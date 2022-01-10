@@ -57,7 +57,6 @@
               <v-btn
                 type="submit"
                 color="primary"
-                @click="onGenerateButtonClick"
               >
                 Generate
               </v-btn>
@@ -101,7 +100,7 @@ export default {
   }),
   methods: {
     onFormSubmit() {
-      console.log(this.width, this.length, this.height);
+      this.renderIfcStructure();
     },
     onTextFieldNumberFocus(event) {
       this.selectInputText(event);
@@ -134,9 +133,6 @@ export default {
           ifcURL,
           (ifcModel) => this.scene.add(ifcModel.mesh)
       );
-    },
-    onGenerateButtonClick() {
-      this.renderIfcStructure();
     },
   },
   async mounted() {
