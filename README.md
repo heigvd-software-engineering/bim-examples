@@ -23,7 +23,8 @@ Quick explanation of the folder content.
 
 ## Current state
 
-Trying to log a simple IFC structure created from scratch with IFCjs in the frontend.
+We can generate an IFC structure containing a slab. This structure is then loaded by the IFC js loader and rendered in a 3D viewer.
+We can choose the length of the sides of the slab.
 
 ## How to run it
 
