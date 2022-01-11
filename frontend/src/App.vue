@@ -96,9 +96,9 @@ export default {
     scene: null,
     ifcModel: -1,
     ifcString: '',
-    width: 300,
-    length: 400,
-    height: 50,
+    width: 10,
+    length: 7,
+    height: 1,
   }),
   methods: {
     async onFormSubmit() {
