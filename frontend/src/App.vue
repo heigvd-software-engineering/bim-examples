@@ -102,6 +102,7 @@ export default {
     ifcLoader: new IFCLoader(),
     ifcApi: new IFCLoader().ifcManager.ifcAPI,
     scene: null,
+    ifcModel: -1,
     ifcString: '',
     width: 300,
     length: 400,
@@ -139,7 +140,13 @@ export default {
       const ifcURL = URL.createObjectURL(ifcBlob);
       this.ifcLoader.load(
           ifcURL,
-          (ifcModel) => this.scene.add(ifcModel.mesh)
+          (ifcModel) => {
+            if (this.ifcModel.modelID > -1) {
+              this.scene.remove(this.ifcModel);
+            }
+            this.scene.add(ifcModel);
+            this.ifcModel = ifcModel;
+          }
       );
     },
   },
