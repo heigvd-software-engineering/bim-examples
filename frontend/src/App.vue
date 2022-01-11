@@ -133,7 +133,7 @@ export default {
     async generateIfcStructure(columnQuantity) {
       // initialize the library
       await this.ifcApi.Init();
-      this.ifcString = ifcWriter.writeIFC(this.ifcApi, columnQuantity);
+      this.ifcString = ifcWriter.writeIFC(this.ifcApi, this.width, this.length, this.height);
     },
     renderIfcStructure() {
       const ifcBlob = new Blob([this.ifcString], {type: 'text/plain'});
