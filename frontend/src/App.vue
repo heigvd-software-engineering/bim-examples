@@ -54,14 +54,6 @@
                   required
                   @click="onTextFieldNumberFocus"
               ></v-text-field>
-              <v-text-field
-                  v-model.number="columnCount"
-                  label="Column count"
-                  type="number"
-                  dark
-                  required
-                  @click="onTextFieldNumberFocus"
-              ></v-text-field>
               <v-btn
                 type="submit"
                 color="primary"
@@ -107,11 +99,10 @@ export default {
     width: 300,
     length: 400,
     height: 50,
-    columnCount: 3,
   }),
   methods: {
     async onFormSubmit() {
-      await this.generateIfcStructure(this.columnCount);
+      await this.generateIfcStructure();
       this.renderIfcStructure();
     },
     onTextFieldNumberFocus(event) {
@@ -130,7 +121,7 @@ export default {
           ifcURL,
           (ifcModel) => this.scene.add(ifcModel.mesh));
     },
-    async generateIfcStructure(columnQuantity) {
+    async generateIfcStructure() {
       // initialize the library
       await this.ifcApi.Init();
       this.ifcString = ifcWriter.writeIFC(this.ifcApi, this.width, this.length, this.height);
