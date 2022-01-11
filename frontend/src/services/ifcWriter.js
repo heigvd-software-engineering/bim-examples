@@ -94,6 +94,7 @@ function Placement(model, api, o)
     return ref(ID);
 }
 
+// eslint-disable-next-line no-unused-vars
 function CircleProfile(model, api, rad, o)
 {
     const ID = EID++;
@@ -107,12 +108,40 @@ function CircleProfile(model, api, rad, o)
     return ref(ID);
 }
 
+function RectangleProfile(model, api, xDim, yDim, o)
+{
+    const ID = EID++;
+    const pt = new WebIFC.IfcRectangleProfileDef(ID,
+        WebIFC.IFCRECTANGLEPROFILEDEF,
+        enm(WebIFC.IfcProfileTypeEnum.AREA),
+        str('column-prefab'),
+        AxisPlacement2D(model, api, o),
+        real(xDim),
+        real(yDim));
+    api.WriteLine(model, pt);
+    return ref(ID);
+}
+
+// eslint-disable-next-line no-unused-vars
 function ExtrudedAreaSolid(model, api, pos, dir, rad, len)
 {
     const ID = EID++;
     const pt = new WebIFC.IfcExtrudedAreaSolid(ID,
         WebIFC.IFCEXTRUDEDAREASOLID,
         CircleProfile(model, api, rad, { x: 0, y: 0 }),
+        AxisPlacement(model, api, pos),
+        Dir(model, api, dir),
+        real(len));
+    api.WriteLine(model, pt);
+    return ref(ID);
+}
+
+function ExtrudedAreaSolidRectangle(model, api, pos, dir, xDim, yDim, len)
+{
+    const ID = EID++;
+    const pt = new WebIFC.IfcExtrudedAreaSolid(ID,
+        WebIFC.IFCEXTRUDEDAREASOLID,
+        RectangleProfile(model, api, xDim, yDim, { x: 0, y: 0 }),
         AxisPlacement(model, api, pos),
         Dir(model, api, dir),
         real(len));
