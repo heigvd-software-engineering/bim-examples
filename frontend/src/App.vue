@@ -114,12 +114,20 @@ export default {
     createScene() {
       this.scene = createScene(this.$refs.scene3d);
     },
+    loadIfcModel(ifcModel) {
+      if (this.ifcModel.modelID > -1) {
+        this.scene.remove(this.ifcModel);
+      }
+      this.scene.add(ifcModel);
+      this.ifcModel = ifcModel;
+    },
     onIfcFileInputChange(changed) {
       const [ file ] = changed.target.files;
       const ifcURL = URL.createObjectURL(file);
       this.ifcLoader.load(
           ifcURL,
-          (ifcModel) => this.scene.add(ifcModel.mesh));
+          this.loadIfcModel
+      );
     },
     async generateIfcStructure() {
       // initialize the library
@@ -131,13 +139,7 @@ export default {
       const ifcURL = URL.createObjectURL(ifcBlob);
       this.ifcLoader.load(
           ifcURL,
-          (ifcModel) => {
-            if (this.ifcModel.modelID > -1) {
-              this.scene.remove(this.ifcModel);
-            }
-            this.scene.add(ifcModel);
-            this.ifcModel = ifcModel;
-          }
+          this.loadIfcModel
       );
     },
   },
