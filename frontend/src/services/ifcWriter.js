@@ -174,6 +174,32 @@ function StandardColumn(model, api, pos)
     return ref(ID);
 }
 
+function Slab(model, api, pos)
+{
+    const shapeID = ExtrudedAreaSolidRectangle(model, api,
+        { x: -2, y: 0, z: -1 },
+        { x: 0, y: 0, z: 1 },
+        5,
+        5,
+        1);
+
+    const ID = EID++;
+    const pt = new WebIFC.IfcSlab(ID,
+        WebIFC.IFCSLAB,
+        str("GUID"),
+        empty(),
+        str("name"),
+        empty(),
+        str("label"),
+        Placement(model, api, pos),
+        shapeID,
+        str("sadf"),
+        empty());
+    api.WriteLine(model, pt);
+    return ref(ID);
+}
+
+// eslint-disable-next-line no-unused-vars
 function BuildModel(model, columnQuantity, api)
 {
     console.log("Building model " + model);
@@ -189,13 +215,15 @@ function BuildModel(model, columnQuantity, api)
     }
 }
 
+// eslint-disable-next-line no-unused-vars
 function writeIFC(ifcAPI, columnQuantity) {
     const model = ifcAPI.CreateModel({
         COORDINATE_TO_ORIGIN: true,
         USE_FAST_BOOLS: true,
     });
 
-    BuildModel(model, columnQuantity, ifcAPI);
+    // BuildModel(model, columnQuantity, ifcAPI);
+    Slab(model, ifcAPI, { x: 0, y: 0, z: 0 });
 
     const ifcData = ifcAPI.ExportFileAsIFC(model);
     ifcAPI.CloseModel(model);
