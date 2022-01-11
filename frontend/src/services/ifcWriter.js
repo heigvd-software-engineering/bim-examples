@@ -151,10 +151,11 @@ function ExtrudedAreaSolidRectangle(model, api, pos, dir, xDim, yDim, len)
 
 function StandardColumn(model, api, pos)
 {
-    const shapeID = ExtrudedAreaSolid(model, api,
+    const shapeID = ExtrudedAreaSolidRectangle(model, api,
         { x: -2, y: 0, z: -1 },
         { x: 0, y: 0, z: 1 },
-        0.25,
+        0.5,
+        0.5,
         2);
 
     const ID = EID++;
