@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  db:
+    image: mysql:8.0.29
+    container_name: bim-examples-db
+    restart: always
+    environment:
+      MYSQL_DATABASE: bim-examples
+      MYSQL_ROOT_PASSWORD: bim123
+    ports:
+      - 3307:3306
+    volumes:
+      - db-bim-examples:/var/lib/mysql
+    command: ["mysqld", "--character-set-server=utf8mb4", "--collation-server=utf8mb4_unicode_ci"]
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: bim-examples-phpmyadmin
+    environment:
+      - PMA_HOST=db
+    restart: always
+    depends_on:
+      - db
+    ports:
+      - 8889:80
+
+volumes: 
+  db-bim-examples:
