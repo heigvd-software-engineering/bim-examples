@@ -1,4 +1,4 @@
-package org.acme;
+package ch.heig.examples.bim;
 
 import io.quarkus.test.junit.QuarkusIntegrationTest;
 
