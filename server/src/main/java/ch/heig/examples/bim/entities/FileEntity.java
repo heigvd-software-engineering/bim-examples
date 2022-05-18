@@ -7,7 +7,6 @@ import java.util.Date;
 
 @Entity
 public class FileEntity extends PanacheEntity {
-    public Long id;
     public String name;
     public Date creationDate;
 }
