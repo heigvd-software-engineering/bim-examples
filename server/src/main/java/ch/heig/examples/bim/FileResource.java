@@ -26,11 +26,11 @@ public class FileResource {
     @Consumes(MediaType.APPLICATION_JSON)
     @Transactional
     public Response create(FileDto dto) {
-        FileEntity fileEntity = new FileEntity();
-        fileEntity.name = dto.name();
-        fileEntity.creationDate = new Date();
+        FileEntity entity = new FileEntity();
+        entity.name = dto.name();
+        entity.creationDate = new Date();
 
-        fileRepository.persist(fileEntity);
-        return Response.created(URI.create("/files/" + fileEntity.id)).build();
+        fileRepository.persist(entity);
+        return Response.created(URI.create("/files/" + entity.id)).build();
     }
 }
