@@ -38,11 +38,11 @@
     </dependency>
     <dependency>
       <groupId>io.quarkus</groupId>
-      <artifactId>quarkus-agroal</artifactId>
+      <artifactId>quarkus-jdbc-mysql</artifactId>
     </dependency>
     <dependency>
       <groupId>io.quarkus</groupId>
-      <artifactId>quarkus-jdbc-mysql</artifactId>
+      <artifactId>quarkus-hibernate-orm-panache</artifactId>
     </dependency>
     <dependency>
       <groupId>io.quarkus</groupId>
