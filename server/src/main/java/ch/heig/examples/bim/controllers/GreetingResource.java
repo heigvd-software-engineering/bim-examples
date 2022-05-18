@@ -1,4 +1,4 @@
-package ch.heig.examples.bim;
+package ch.heig.examples.bim.controllers;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;

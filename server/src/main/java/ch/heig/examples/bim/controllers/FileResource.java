@@ -1,4 +1,4 @@
-package ch.heig.examples.bim;
+package ch.heig.examples.bim.controllers;
 
 import ch.heig.examples.bim.dtos.FileDto;
 import ch.heig.examples.bim.entities.FileEntity;
