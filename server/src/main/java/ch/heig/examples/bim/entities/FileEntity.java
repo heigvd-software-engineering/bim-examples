@@ -1,5 +1,13 @@
 package ch.heig.examples.bim.entities;
 
+import io.quarkus.hibernate.orm.panache.PanacheEntity;
+
+import javax.persistence.Entity;
 import java.util.Date;
 
-public record FileEntity(int id, String name, Date creationDate) {}
+@Entity
+public class FileEntity extends PanacheEntity {
+    public Long id;
+    public String name;
+    public Date creationDate;
+}
