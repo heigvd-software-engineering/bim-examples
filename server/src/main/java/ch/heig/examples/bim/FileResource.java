@@ -2,7 +2,9 @@ package ch.heig.examples.bim;
 
 import ch.heig.examples.bim.dtos.FileDto;
 import ch.heig.examples.bim.entities.FileEntity;
+import ch.heig.examples.bim.repositories.FileRepository;
 
+import javax.inject.Inject;
 import javax.transaction.Transactional;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
@@ -16,6 +18,9 @@ import java.util.Date;
 @Path("/files")
 public class FileResource {
 
+    @Inject
+    FileRepository fileRepository;
+
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
@@ -25,7 +30,7 @@ public class FileResource {
         fileEntity.name = dto.name();
         fileEntity.creationDate = new Date();
 
-        fileEntity.persist();
+        fileRepository.persist(fileEntity);
         return Response.created(URI.create("/files/" + fileEntity.id)).build();
     }
 }
