@@ -14,11 +14,12 @@ public class FileService {
     @Inject
     FileRepository fileRepository;
 
-    public void createEntity(FileDto dto) {
+    public FileEntity createEntity(FileDto dto) {
         FileEntity entity = new FileEntity();
         entity.name = dto.name();
         entity.creationDate = new Date();
 
         fileRepository.persist(entity);
+        return entity;
     }
 }
