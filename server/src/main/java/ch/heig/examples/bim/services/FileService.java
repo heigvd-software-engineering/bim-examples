@@ -6,6 +6,7 @@ import ch.heig.examples.bim.repositories.FileRepository;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+import javax.ws.rs.NotFoundException;
 import java.util.Date;
 
 @ApplicationScoped
@@ -24,8 +25,13 @@ public class FileService {
         return entity;
     }
 
-    public FileEntity updateFileBlob(long id, byte[] fileBlob) {
+    public FileEntity updateFileBlob(long id, byte[] fileBlob) throws NotFoundException {
         FileEntity entity = fileRepository.findById(id);
+
+        if (entity == null) {
+            throw new NotFoundException("Could not find file with id " + id);
+        }
+
         entity.file = fileBlob;
         entity.lastUpdate = new Date();
 
