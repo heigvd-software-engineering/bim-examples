@@ -1,6 +1,7 @@
 package ch.heig.examples.bim.controllers;
 
 import ch.heig.examples.bim.dtos.FileDto;
+import ch.heig.examples.bim.dtos.FileMetadataDto;
 import ch.heig.examples.bim.dtos.FileSummaryDto;
 import ch.heig.examples.bim.entities.FileEntity;
 import ch.heig.examples.bim.services.FileService;
@@ -35,6 +36,15 @@ public class FileResource {
         return Response.created(URI.create("/files/" + entity.id)).build();
     }
 
+    @GET
+    @Path("/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response findById(@PathParam("id") long id) {
+        FileEntity entity = fileService.findById(id);
+        FileMetadataDto dto = new FileMetadataDto(entity.name, entity.creationDate, entity.lastUpdate);
+        return Response.ok(dto).build();
+    }
+
     @PUT
     @Path("/{id}")
     @Consumes(MediaType.APPLICATION_OCTET_STREAM)
@@ -43,5 +53,13 @@ public class FileResource {
     public Response update(@PathParam("id") long id, byte[] fileBlob) {
         fileService.updateFileBlob(id, fileBlob);
         return Response.noContent().build();
+    }
+
+    @GET
+    @Path("/{id}/blob")
+    @Produces(MediaType.APPLICATION_OCTET_STREAM)
+    public Response findBlobById(@PathParam("id") long id) {
+        FileEntity entity = fileService.findById(id);
+        return Response.ok(entity.file).build();
     }
 }
