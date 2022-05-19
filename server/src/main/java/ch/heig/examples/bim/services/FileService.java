@@ -8,12 +8,17 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.ws.rs.NotFoundException;
 import java.util.Date;
+import java.util.List;
 
 @ApplicationScoped
 public class FileService {
 
     @Inject
     FileRepository fileRepository;
+
+    public List<FileEntity> findAll() {
+        return fileRepository.findAll().stream().toList();
+    }
 
     public FileEntity createEntity(FileDto dto) {
         FileEntity entity = new FileEntity();
