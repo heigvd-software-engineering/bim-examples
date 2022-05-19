@@ -1,4 +1,4 @@
-package ch.heig.examples.bim;
+package ch.heig.examples.bim.controllers;
 
 import io.quarkus.test.junit.QuarkusIntegrationTest;
 
