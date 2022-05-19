@@ -44,4 +44,12 @@ public class FileResource {
         fileService.updateFileBlob(id, fileBlob);
         return Response.noContent().build();
     }
+
+    @GET
+    @Path("/{id}")
+    @Produces()
+    public Response findById(@PathParam("id") long id) {
+        FileEntity entity = fileService.findById(id);
+        return Response.ok(entity).build();
+    }
 }
