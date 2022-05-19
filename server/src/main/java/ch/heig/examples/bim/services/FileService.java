@@ -18,6 +18,7 @@ public class FileService {
         FileEntity entity = new FileEntity();
         entity.name = dto.name();
         entity.creationDate = new Date();
+        entity.lastUpdate = entity.creationDate;
 
         fileRepository.persist(entity);
         return entity;

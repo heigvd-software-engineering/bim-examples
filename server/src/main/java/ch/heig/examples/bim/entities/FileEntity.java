@@ -9,4 +9,5 @@ import java.util.Date;
 public class FileEntity extends PanacheEntity {
     public String name;
     public Date creationDate;
+    public Date lastUpdate;
 }
