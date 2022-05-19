@@ -17,10 +17,6 @@ public class FileService {
     @Inject
     FileRepository fileRepository;
 
-    public List<FileEntity> findAll() {
-        return fileRepository.findAll().stream().toList();
-    }
-
     public List<FileSummaryDto> findAllSummaries() {
         return fileRepository.findAll().stream()
                 .map(this::toFileSummaryDto)
