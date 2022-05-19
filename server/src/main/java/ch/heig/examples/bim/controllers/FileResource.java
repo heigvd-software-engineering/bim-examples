@@ -21,8 +21,8 @@ public class FileResource {
     FileService fileService;
 
     @POST
-    @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
+    @Produces()
     @Transactional
     public Response create(FileDto dto) {
         FileEntity entity = fileService.createEntity(dto);
