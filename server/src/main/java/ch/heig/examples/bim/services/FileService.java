@@ -1,6 +1,7 @@
 package ch.heig.examples.bim.services;
 
 import ch.heig.examples.bim.dtos.FileDto;
+import ch.heig.examples.bim.dtos.FileSummaryDto;
 import ch.heig.examples.bim.entities.FileEntity;
 import ch.heig.examples.bim.repositories.FileRepository;
 
@@ -8,12 +9,19 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.ws.rs.NotFoundException;
 import java.util.Date;
+import java.util.List;
 
 @ApplicationScoped
 public class FileService {
 
     @Inject
     FileRepository fileRepository;
+
+    public List<FileSummaryDto> findAllSummaries() {
+        return fileRepository.findAll().stream()
+                .map(this::toFileSummaryDto)
+                .toList();
+    }
 
     public FileEntity createEntity(FileDto dto) {
         FileEntity entity = new FileEntity();
@@ -36,5 +44,9 @@ public class FileService {
         entity.lastUpdate = new Date();
 
         fileRepository.persist(entity);
+    }
+
+    private FileSummaryDto toFileSummaryDto(FileEntity entity) {
+        return new FileSummaryDto(entity.id, entity.name);
     }
 }
