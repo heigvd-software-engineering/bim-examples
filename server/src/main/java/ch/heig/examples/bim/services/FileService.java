@@ -23,7 +23,7 @@ public class FileService {
 
     public List<FileSummaryDto> findAllSummaries() {
         return fileRepository.findAll().stream()
-                .map(fileEntity -> new FileSummaryDto(fileEntity.id, fileEntity.name))
+                .map(this::toFileSummaryDto)
                 .toList();
     }
 
