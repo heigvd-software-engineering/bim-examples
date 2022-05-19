@@ -54,4 +54,12 @@ public class FileResource {
         fileService.updateFileBlob(id, fileBlob);
         return Response.noContent().build();
     }
+
+    @GET
+    @Path("/{id}/blob")
+    @Produces(MediaType.APPLICATION_OCTET_STREAM)
+    public Response findBlobById(@PathParam("id") long id) {
+        FileEntity entity = fileService.findById(id);
+        return Response.ok(entity.file).build();
+    }
 }
