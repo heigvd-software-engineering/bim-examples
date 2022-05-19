@@ -25,7 +25,7 @@ public class FileService {
         return entity;
     }
 
-    public FileEntity updateFileBlob(long id, byte[] fileBlob) throws NotFoundException {
+    public void updateFileBlob(long id, byte[] fileBlob) throws NotFoundException {
         FileEntity entity = fileRepository.findById(id);
 
         if (entity == null) {
@@ -36,6 +36,5 @@ public class FileService {
         entity.lastUpdate = new Date();
 
         fileRepository.persist(entity);
-        return entity;
     }
 }
