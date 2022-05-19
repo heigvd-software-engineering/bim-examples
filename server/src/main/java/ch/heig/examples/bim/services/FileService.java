@@ -21,6 +21,12 @@ public class FileService {
         return fileRepository.findAll().stream().toList();
     }
 
+    public List<FileSummaryDto> findAllSummaries() {
+        return fileRepository.findAll().stream()
+                .map(fileEntity -> new FileSummaryDto(fileEntity.id, fileEntity.name))
+                .toList();
+    }
+
     public FileEntity createEntity(FileDto dto) {
         FileEntity entity = new FileEntity();
         entity.name = dto.name();
