@@ -31,7 +31,7 @@ public class FileResource {
     @Consumes(MediaType.APPLICATION_OCTET_STREAM)
     @Produces()
     @Transactional
-    public Response update(long id, byte[] fileBlob) {
+    public Response update(@PathParam("id") long id, byte[] fileBlob) {
         fileService.updateFileBlob(id, fileBlob);
         return Response.noContent().build();
     }
