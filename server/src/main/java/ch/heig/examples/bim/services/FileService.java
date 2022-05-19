@@ -17,6 +17,9 @@ public class FileService {
     @Inject
     FileRepository fileRepository;
 
+    /**
+     * @return A list containing all saved files with minimal information
+     */
     public List<FileSummaryDto> findAllSummaries() {
         return fileRepository.findAll().stream()
                 .map(this::toFileSummaryDto)
