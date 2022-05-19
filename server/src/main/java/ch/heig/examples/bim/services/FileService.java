@@ -23,4 +23,13 @@ public class FileService {
         fileRepository.persist(entity);
         return entity;
     }
+
+    public FileEntity updateFileBlob(long id, byte[] fileBlob) {
+        FileEntity entity = fileRepository.findById(id);
+        entity.file = fileBlob;
+        entity.lastUpdate = new Date();
+
+        fileRepository.persist(entity);
+        return entity;
+    }
 }
