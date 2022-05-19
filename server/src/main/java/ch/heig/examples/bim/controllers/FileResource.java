@@ -1,6 +1,7 @@
 package ch.heig.examples.bim.controllers;
 
 import ch.heig.examples.bim.dtos.FileDto;
+import ch.heig.examples.bim.dtos.FileMetadataDto;
 import ch.heig.examples.bim.dtos.FileSummaryDto;
 import ch.heig.examples.bim.entities.FileEntity;
 import ch.heig.examples.bim.services.FileService;
@@ -40,7 +41,8 @@ public class FileResource {
     @Produces()
     public Response findById(@PathParam("id") long id) {
         FileEntity entity = fileService.findById(id);
-        return Response.ok(entity).build();
+        FileMetadataDto dto = new FileMetadataDto(entity.name, entity.creationDate, entity.lastUpdate);
+        return Response.ok(dto).build();
     }
 
     @PUT
