@@ -10,12 +10,20 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.net.URI;
+import java.util.List;
 
 @Path("/files")
 public class FileResource {
 
     @Inject
     FileService fileService;
+
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response findAll() {
+        List<FileEntity> fileEntityList = fileService.findAll();
+        return Response.ok(fileEntityList).build();
+    }
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
