@@ -38,7 +38,7 @@ public class FileResource {
 
     @GET
     @Path("/{id}")
-    @Produces()
+    @Produces(MediaType.APPLICATION_JSON)
     public Response findById(@PathParam("id") long id) {
         FileEntity entity = fileService.findById(id);
         FileMetadataDto dto = new FileMetadataDto(entity.name, entity.creationDate, entity.lastUpdate);
