@@ -23,6 +23,16 @@ public class FileService {
                 .toList();
     }
 
+    public FileEntity findById(long id) throws NotFoundException {
+        FileEntity entity = fileRepository.findById(id);
+
+        if (entity == null) {
+            throw new NotFoundException("Could not find file with id " + id);
+        }
+
+        return entity;
+    }
+
     public FileEntity createEntity(FileDto dto) {
         FileEntity entity = new FileEntity();
         entity.name = dto.name();
