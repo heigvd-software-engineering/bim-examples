@@ -1,6 +1,7 @@
 package ch.heig.examples.bim.controllers;
 
 import ch.heig.examples.bim.dtos.FileDto;
+import ch.heig.examples.bim.dtos.FileSummaryDto;
 import ch.heig.examples.bim.entities.FileEntity;
 import ch.heig.examples.bim.services.FileService;
 
@@ -21,7 +22,7 @@ public class FileResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response findAll() {
-        List<FileEntity> fileEntityList = fileService.findAll();
+        List<FileSummaryDto> fileEntityList = fileService.findAllSummaries();
         return Response.ok(fileEntityList).build();
     }
 
