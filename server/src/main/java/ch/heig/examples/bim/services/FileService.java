@@ -1,6 +1,7 @@
 package ch.heig.examples.bim.services;
 
 import ch.heig.examples.bim.dtos.FileDto;
+import ch.heig.examples.bim.dtos.FileSummaryDto;
 import ch.heig.examples.bim.entities.FileEntity;
 import ch.heig.examples.bim.repositories.FileRepository;
 
@@ -41,5 +42,9 @@ public class FileService {
         entity.lastUpdate = new Date();
 
         fileRepository.persist(entity);
+    }
+
+    public FileSummaryDto toFileSummaryDto(FileEntity entity) {
+        return new FileSummaryDto(entity.id, entity.name);
     }
 }
