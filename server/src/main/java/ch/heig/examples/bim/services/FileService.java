@@ -50,7 +50,7 @@ public class FileService {
         fileRepository.persist(entity);
     }
 
-    public FileSummaryDto toFileSummaryDto(FileEntity entity) {
+    private FileSummaryDto toFileSummaryDto(FileEntity entity) {
         return new FileSummaryDto(entity.id, entity.name);
     }
 }
