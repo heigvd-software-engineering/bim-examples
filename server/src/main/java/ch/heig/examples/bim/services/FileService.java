@@ -44,11 +44,7 @@ public class FileService {
     }
 
     public void updateFileBlob(long id, byte[] fileBlob) throws NotFoundException {
-        FileEntity entity = fileRepository.findById(id);
-
-        if (entity == null) {
-            throw new NotFoundException("Could not find file with id " + id);
-        }
+        FileEntity entity = this.findById(id);
 
         entity.file = fileBlob;
         entity.lastUpdate = new Date();
