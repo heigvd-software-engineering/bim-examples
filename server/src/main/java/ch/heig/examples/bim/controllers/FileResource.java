@@ -35,6 +35,14 @@ public class FileResource {
         return Response.created(URI.create("/files/" + entity.id)).build();
     }
 
+    @GET
+    @Path("/{id}")
+    @Produces()
+    public Response findById(@PathParam("id") long id) {
+        FileEntity entity = fileService.findById(id);
+        return Response.ok(entity).build();
+    }
+
     @PUT
     @Path("/{id}")
     @Consumes(MediaType.APPLICATION_OCTET_STREAM)
@@ -43,13 +51,5 @@ public class FileResource {
     public Response update(@PathParam("id") long id, byte[] fileBlob) {
         fileService.updateFileBlob(id, fileBlob);
         return Response.noContent().build();
-    }
-
-    @GET
-    @Path("/{id}")
-    @Produces()
-    public Response findById(@PathParam("id") long id) {
-        FileEntity entity = fileService.findById(id);
-        return Response.ok(entity).build();
     }
 }
