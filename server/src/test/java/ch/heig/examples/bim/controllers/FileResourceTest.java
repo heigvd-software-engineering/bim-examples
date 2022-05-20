@@ -1,4 +1,4 @@
-package ch.heig.examples.bim.services;
+package ch.heig.examples.bim.controllers;
 
 import io.quarkus.test.junit.QuarkusTest;
 import org.junit.jupiter.api.Test;
