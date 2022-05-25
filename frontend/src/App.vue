@@ -33,25 +33,31 @@
             >
               Upload
             </v-btn>
-            <v-simple-table>
-              <template v-slot:default>
-                <thead>
-                <tr>
-                  <th class="text-left">
-                    Name
-                  </th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr
-                    v-for="item in files"
-                    :key="item.id"
-                >
-                  <td><span @click="onItemNameClick" style="cursor: pointer">{{ item.name }}</span></td>
-                </tr>
-                </tbody>
-              </template>
-            </v-simple-table>
+            <div>
+              <v-skeleton-loader
+                  v-if="loadingFilesList"
+                  type="table"
+              ></v-skeleton-loader>
+              <v-simple-table v-else>
+                <template v-slot:default>
+                  <thead>
+                  <tr>
+                    <th class="text-left">
+                      Name
+                    </th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr
+                      v-for="item in filesList"
+                      :key="item.id"
+                  >
+                    <td><span @click="onItemNameClick" style="cursor: pointer">{{ item.name }}</span></td>
+                  </tr>
+                  </tbody>
+                </template>
+              </v-simple-table>
+            </div>
             <div class="fill-height">
               <input
                   type="file"
@@ -98,6 +104,7 @@
 <script>
 import { IFCLoader } from "web-ifc-three/IFCLoader";
 import { createScene } from "@/services/ifcScripts";
+import { findAllSummaries } from "@/services/ifcResourceService";
 
 export default {
   name: 'App',
@@ -105,10 +112,8 @@ export default {
     ifcLoader: new IFCLoader(),
     scene: null,
     ifcModel: -1,
-    files: [
-      { id: 1, name: 'test.ifc' },
-      { id: 2, name: 'column.ifc' },
-    ],
+    loadingFilesList: true,
+    filesList: [],
     dialogShown: false,
   }),
   methods: {
@@ -134,6 +139,13 @@ export default {
       this.dialogShown = true;
       console.log('clicked!')
     },
+  },
+  created() {
+    findAllSummaries()
+      .then(({ data }) => {
+        this.filesList = data;
+        this.loadingFilesList = false;
+      });
   },
   mounted() {
     const wasmPath = '../files/';
