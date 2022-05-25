@@ -44,7 +44,7 @@
                 </thead>
                 <tbody>
                 <tr
-                    v-for="item in files"
+                    v-for="item in filesList"
                     :key="item.id"
                 >
                   <td><span @click="onItemNameClick" style="cursor: pointer">{{ item.name }}</span></td>
@@ -108,10 +108,6 @@ export default {
     ifcModel: -1,
     loadingFilesList: true,
     filesList: [],
-    files: [
-      { id: 1, name: 'test.ifc' },
-      { id: 2, name: 'column.ifc' },
-    ],
     dialogShown: false,
   }),
   methods: {
