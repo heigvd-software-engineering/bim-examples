@@ -33,25 +33,31 @@
             >
               Upload
             </v-btn>
-            <v-simple-table>
-              <template v-slot:default>
-                <thead>
-                <tr>
-                  <th class="text-left">
-                    Name
-                  </th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr
-                    v-for="item in filesList"
-                    :key="item.id"
-                >
-                  <td><span @click="onItemNameClick" style="cursor: pointer">{{ item.name }}</span></td>
-                </tr>
-                </tbody>
-              </template>
-            </v-simple-table>
+            <div>
+              <v-skeleton-loader
+                  v-if="loadingFilesList"
+                  type="table"
+              ></v-skeleton-loader>
+              <v-simple-table v-else>
+                <template v-slot:default>
+                  <thead>
+                  <tr>
+                    <th class="text-left">
+                      Name
+                    </th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr
+                      v-for="item in filesList"
+                      :key="item.id"
+                  >
+                    <td><span @click="onItemNameClick" style="cursor: pointer">{{ item.name }}</span></td>
+                  </tr>
+                  </tbody>
+                </template>
+              </v-simple-table>
+            </div>
             <div class="fill-height">
               <input
                   type="file"
