@@ -1,15 +1,14 @@
 <script setup lang="ts">
 import { IFCLoader } from "web-ifc-three/IFCLoader";
-import type { Scene } from "three";
+import type { Scene, Object3D } from "three";
 import { onMounted, ref } from "vue";
 import { createScene } from "@/services/ifcScripts.js";
 
 const ifcLoader = new IFCLoader();
 let scene: Scene;
-let ifcModel = -1;
 const wasmPath = "../files/";
 
-const scene3d = ref(null);
+const scene3d = ref<HTMLCanvasElement>();
 
 ifcLoader.ifcManager.setWasmPath(wasmPath);
 
@@ -17,12 +16,9 @@ const renderScene = () => {
   scene = createScene(scene3d.value);
 };
 
-const loadIfcModel = (newIfcModel) => {
-  if (newIfcModel.modelID > -1) {
-    scene.remove(newIfcModel);
-  }
+const loadIfcModel = (newIfcModel: Object3D) => {
+  scene.remove(newIfcModel);
   scene.add(newIfcModel);
-  ifcModel = newIfcModel;
 };
 
 const onIfcFileInputChange = (changed) => {
