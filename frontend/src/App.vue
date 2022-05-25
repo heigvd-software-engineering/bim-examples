@@ -15,53 +15,13 @@
           width="40"
         />
 
-        <h1 class="white--text">Demo BIM</h1>
+        <h1 class="white--text">bim-examples</h1>
       </div>
     </v-app-bar>
 
     <v-main>
       <v-container class="fill-height">
         <v-row class="fill-height">
-          <v-col
-              cols="12"
-              md="3"
-          >
-            <h2>Slab dimensions</h2>
-            <v-form
-              @submit.prevent="onFormSubmit"
-            >
-              <v-text-field
-                  v-model.number="width"
-                  label="Width"
-                  type="number"
-                  dark
-                  required
-                  @focus="onTextFieldNumberFocus"
-              ></v-text-field>
-              <v-text-field
-                  v-model.number="length"
-                  label="Length"
-                  type="number"
-                  dark
-                  required
-                  @click="onTextFieldNumberFocus"
-              ></v-text-field>
-              <v-text-field
-                  v-model.number="height"
-                  label="Height"
-                  type="number"
-                  dark
-                  required
-                  @click="onTextFieldNumberFocus"
-              ></v-text-field>
-              <v-btn
-                type="submit"
-                color="primary"
-              >
-                Generate
-              </v-btn>
-            </v-form>
-          </v-col>
           <v-col
               cols="12"
               md="9"
@@ -86,31 +46,15 @@
 <script>
 import { IFCLoader } from "web-ifc-three/IFCLoader";
 import { createScene } from "@/services/ifcScripts";
-import { ifcWriter } from "@/services/ifcWriter";
 
 export default {
   name: 'App',
   data: () => ({
     ifcLoader: new IFCLoader(),
-    ifcApi: new IFCLoader().ifcManager.ifcAPI,
     scene: null,
     ifcModel: -1,
-    ifcString: '',
-    width: 10,
-    length: 7,
-    height: 1,
   }),
   methods: {
-    async onFormSubmit() {
-      await this.generateIfcStructure();
-      this.renderIfcStructure();
-    },
-    onTextFieldNumberFocus(event) {
-      this.selectInputText(event);
-    },
-    selectInputText(event) {
-      event.target.select();
-    },
     createScene() {
       this.scene = createScene(this.$refs.scene3d);
     },
@@ -129,25 +73,11 @@ export default {
           this.loadIfcModel
       );
     },
-    async generateIfcStructure() {
-      // initialize the library
-      await this.ifcApi.Init();
-      this.ifcString = ifcWriter.writeIFC(this.ifcApi, this.width, this.length, this.height);
-    },
-    renderIfcStructure() {
-      const ifcBlob = new Blob([this.ifcString], {type: 'text/plain'});
-      const ifcURL = URL.createObjectURL(ifcBlob);
-      this.ifcLoader.load(
-          ifcURL,
-          this.loadIfcModel
-      );
-    },
   },
   mounted() {
     const wasmPath = '../files/';
     this.ifcLoader.ifcManager.setWasmPath(wasmPath)
     this.createScene();
-    this.ifcApi.SetWasmPath(wasmPath)
   },
 }
 </script>
