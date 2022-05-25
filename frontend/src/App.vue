@@ -27,6 +27,12 @@
               md="9"
               style="background-color: #333333"
           >
+            <v-btn
+                type="submit"
+                color="primary"
+            >
+              Upload
+            </v-btn>
             <div class="fill-height">
               <input
                   type="file"
