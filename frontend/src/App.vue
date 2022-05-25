@@ -33,6 +33,25 @@
             >
               Upload
             </v-btn>
+            <v-simple-table>
+              <template v-slot:default>
+                <thead>
+                <tr>
+                  <th class="text-left">
+                    Name
+                  </th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr
+                    v-for="item in files"
+                    :key="item.id"
+                >
+                  <td>{{ item.name }}</td>
+                </tr>
+                </tbody>
+              </template>
+            </v-simple-table>
             <div class="fill-height">
               <input
                   type="file"
@@ -59,6 +78,10 @@ export default {
     ifcLoader: new IFCLoader(),
     scene: null,
     ifcModel: -1,
+    files: [
+      { id: 1, name: 'test.ifc' },
+      { id: 2, name: 'column.ifc' },
+    ]
   }),
   methods: {
     createScene() {
