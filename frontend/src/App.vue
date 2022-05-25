@@ -47,7 +47,7 @@
                     v-for="item in files"
                     :key="item.id"
                 >
-                  <td>{{ item.name }}</td>
+                  <td><span @click="onItemNameClick" style="cursor: pointer">{{ item.name }}</span></td>
                 </tr>
                 </tbody>
               </template>
@@ -101,6 +101,9 @@ export default {
           ifcURL,
           this.loadIfcModel
       );
+    },
+    onItemNameClick() {
+      console.log('clicked!')
     },
   },
   mounted() {
