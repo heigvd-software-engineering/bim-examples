@@ -20,8 +20,8 @@
     </v-app-bar>
 
     <v-main>
-      <v-container class="fill-height">
-        <v-row class="fill-height">
+      <v-container>
+        <v-row>
           <v-col
               cols="12"
               md="9"
@@ -61,6 +61,33 @@
               />
               <canvas id="scene3d" ref="scene3d"></canvas>
             </div>
+            <v-dialog
+                v-model="dialogShown"
+                width="500"
+            >
+              <v-card>
+                <v-card-title class="text-h5 grey lighten-2">
+                  Hola!
+                </v-card-title>
+
+                <v-card-text>
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                </v-card-text>
+
+                <v-divider></v-divider>
+
+                <v-card-actions>
+                  <v-spacer></v-spacer>
+                  <v-btn
+                      color="primary"
+                      text
+                      @click="dialogShown = false"
+                  >
+                    I accept
+                  </v-btn>
+                </v-card-actions>
+              </v-card>
+            </v-dialog>
           </v-col>
         </v-row>
       </v-container>
@@ -81,7 +108,8 @@ export default {
     files: [
       { id: 1, name: 'test.ifc' },
       { id: 2, name: 'column.ifc' },
-    ]
+    ],
+    dialogShown: false,
   }),
   methods: {
     createScene() {
@@ -103,6 +131,7 @@ export default {
       );
     },
     onItemNameClick() {
+      this.dialogShown = true;
       console.log('clicked!')
     },
   },
