@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "core-js": "^3.6.5",
+    "three": "^0.140.2",
     "vue": "^2.6.11",
     "vuetify": "^2.4.0",
     "web-ifc-three": "0.0.68"
