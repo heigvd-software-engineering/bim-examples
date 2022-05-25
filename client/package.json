@@ -2,6 +2,7 @@
   "name": "client",
   "version": "0.0.0",
   "scripts": {
+    "preserve": "cp ./node_modules/web-ifc/web-ifc.wasm ./public/files/",
     "dev": "vite",
     "build": "vue-tsc --noEmit && vite build",
     "preview": "vite preview --port 5050",
@@ -12,8 +13,11 @@
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore"
   },
   "dependencies": {
+    "@types/three": "^0.140.0",
+    "three": "^0.140.2",
     "vue": "^3.2.33",
-    "vue-router": "^4.0.14"
+    "vue-router": "^4.0.14",
+    "web-ifc-three": "^0.0.116"
   },
   "devDependencies": {
     "@rushstack/eslint-patch": "^1.1.0",

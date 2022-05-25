@@ -1,29 +1,51 @@
 <script setup lang="ts">
-import { RouterLink, RouterView } from "vue-router";
-import HelloWorld from "@/components/HelloWorld.vue";
+import { IFCLoader } from "web-ifc-three/IFCLoader";
+import type { Scene } from "three";
+import { onMounted, ref } from "vue";
+import { createScene } from "@/services/ifcScripts.js";
+
+const ifcLoader = new IFCLoader();
+let scene: Scene;
+let ifcModel = -1;
+const wasmPath = "../files/";
+
+const scene3d = ref(null);
+
+ifcLoader.ifcManager.setWasmPath(wasmPath);
+
+const renderScene = () => {
+  scene = createScene(scene3d.value);
+};
+
+const loadIfcModel = (newIfcModel) => {
+  if (newIfcModel.modelID > -1) {
+    scene.remove(newIfcModel);
+  }
+  scene.add(newIfcModel);
+  ifcModel = newIfcModel;
+};
+
+const onIfcFileInputChange = (changed) => {
+  const [file] = changed.target.files;
+  const ifcURL = URL.createObjectURL(file);
+  ifcLoader.load(ifcURL, loadIfcModel);
+};
+
+onMounted(() => {
+  renderScene();
+});
 </script>
 
 <template>
-  <header>
-    <img
-      alt="Vue logo"
-      class="logo"
-      src="@/assets/logo.svg"
-      width="125"
-      height="125"
+  <div class="fill-height">
+    <input
+      type="file"
+      name="load"
+      class="file-input"
+      @change="onIfcFileInputChange"
     />
-
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-
-      <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
-      </nav>
-    </div>
-  </header>
-
-  <RouterView />
+    <canvas id="scene3d" ref="scene3d"></canvas>
+  </div>
 </template>
 
 <style>
@@ -120,6 +142,17 @@ nav a:first-of-type {
 
     padding: 1rem 0;
     margin-top: 1rem;
+  }
+
+  #scene3d {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+
+  .file-input {
+    z-index: 1;
+    position: absolute;
   }
 }
 </style>

@@ -26,3 +26,6 @@ coverage
 *.njsproj
 *.sln
 *.sw?
+
+# IFCjs wasm file (should be generated from dependency)
+web-ifc.wasm
