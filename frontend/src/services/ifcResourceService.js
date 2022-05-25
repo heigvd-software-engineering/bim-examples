@@ -34,9 +34,20 @@ async function create(fileDto) {
     return httpClient.post(baseUrl, fileDto);
 }
 
+/**
+ *
+ * @param {number} id
+ * @param fileBlob
+ * @return {Promise<AxiosResponse<any>>}
+ */
+async function updateFile(id, fileBlob) {
+    return httpClient.put(`${baseUrl}/${id}`, fileBlob);
+}
+
 export {
     findAllSummaries,
     findById,
     findFileBlobById,
     create,
+    updateFile,
 };
