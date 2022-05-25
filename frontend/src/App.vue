@@ -15,7 +15,7 @@
           width="40"
         />
 
-        <h1 class="white--text">Demo BIM</h1>
+        <h1 class="white--text">bim-examples</h1>
       </div>
     </v-app-bar>
 
