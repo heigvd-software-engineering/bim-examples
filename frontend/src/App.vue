@@ -104,7 +104,7 @@
 <script>
 import { IFCLoader } from "web-ifc-three/IFCLoader";
 import { createScene } from "@/services/ifcScripts";
-import { findAllSummaries } from "@/services/ifcResourceService";
+import {findAllSummaries, findFileBlobById} from "@/services/ifcResourceService";
 
 export default {
   name: 'App',
@@ -115,6 +115,7 @@ export default {
     loadingFilesList: true,
     filesList: [],
     dialogShown: false,
+    loadingIfcFile: true,
   }),
   methods: {
     createScene() {
@@ -146,6 +147,17 @@ export default {
         this.filesList = data;
         this.loadingFilesList = false;
       });
+
+    findFileBlobById(1).then(({ data }) => {
+      this.loadingIfcFile = false;
+      const ifcBlob = new Blob([data], {type: 'text/plain'});
+      const ifcUrl = URL.createObjectURL(ifcBlob);
+      this.ifcLoader.load(
+          ifcUrl,
+          this.loadIfcModel
+      );
+      URL.revokeObjectURL(ifcUrl);
+    });
   },
   mounted() {
     const wasmPath = '../files/';
