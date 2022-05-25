@@ -54,6 +54,8 @@ export default {
     ifcLoader: new IFCLoader(),
     scene: null,
     ifcModel: -1,
+    loadingFilesList: true,
+    filesList: [],
   }),
   methods: {
     createScene() {
@@ -77,8 +79,9 @@ export default {
   },
   created() {
     findAllSummaries()
-      .then((response) => {
-        console.log(response);
+      .then(({ data }) => {
+        this.filesList = data;
+        this.loadingFilesList = false;
       });
   },
   mounted() {
