@@ -33,7 +33,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="fill-height">
+  <div>
     <input
       type="file"
       name="load"
