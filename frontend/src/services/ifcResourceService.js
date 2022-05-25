@@ -25,8 +25,18 @@ async function findFileBlobById(id) {
     return httpClient.get(`${baseUrl}/${id}/blob`);
 }
 
+/**
+ *
+ * @param {FileDto} fileDto
+ * @return {Promise<AxiosResponse<any>>}
+ */
+async function create(fileDto) {
+    return httpClient.post(baseUrl, fileDto);
+}
+
 export {
     findAllSummaries,
     findById,
     findFileBlobById,
+    create,
 };
