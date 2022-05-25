@@ -46,6 +46,7 @@
 <script>
 import { IFCLoader } from "web-ifc-three/IFCLoader";
 import { createScene } from "@/services/ifcScripts";
+import { findAllSummaries } from "@/services/ifcResourceService";
 
 export default {
   name: 'App',
@@ -73,6 +74,12 @@ export default {
           this.loadIfcModel
       );
     },
+  },
+  created() {
+    findAllSummaries()
+      .then((response) => {
+        console.log(response);
+      });
   },
   mounted() {
     const wasmPath = '../files/';
