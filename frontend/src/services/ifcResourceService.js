@@ -37,11 +37,11 @@ async function create(fileDto) {
 /**
  *
  * @param {number} id
- * @param fileBlob
+ * @param {File} fileBlob
  * @return {Promise<AxiosResponse<any>>}
  */
 async function updateFile(id, fileBlob) {
-    return httpClient.put(`${baseUrl}/${id}`, fileBlob);
+    return httpClient.put(`${baseUrl}/${id}`, fileBlob, { 'Content-Type': 'application/octet-stream' });
 }
 
 export {
