@@ -36,6 +36,20 @@
               Upload
             </v-file-input>
             <div>
+              <v-btn
+                  color="primary"
+                  :disabled="fileToUpload == null"
+                  @click="onUploadButtonClick"
+              >
+                Upload
+              </v-btn>
+              <v-progress-circular
+                  v-show="uploadingFile"
+                  indeterminate
+                  color="primary"
+              ></v-progress-circular>
+            </div>
+            <div>
               <v-skeleton-loader
                   v-if="loadingFilesList"
                   type="table"
@@ -116,6 +130,7 @@ export default {
     dialogShown: false,
     loadingIfcFile: true,
     uploadingFile: false,
+    fileToUpload: null,
   }),
   methods: {
     createScene() {
@@ -151,8 +166,16 @@ export default {
           });
     },
     onIfcFileInputChange(file) {
-      this.uploadFile(file);
-      this.renderFile(file);
+      this.fileToUpload = file;
+      if (file) {
+        this.renderFile(file);
+      }
+    },
+    onUploadButtonClick() {
+      if (this.fileToUpload == null) {
+        return;
+      }
+      this.uploadFile(this.fileToUpload);
     },
     onItemNameClick() {
       this.dialogShown = true;
