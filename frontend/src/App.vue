@@ -27,12 +27,9 @@
               md="9"
               style="background-color: #333333"
           >
-            <v-btn
-                type="submit"
-                color="primary"
-            >
+            <v-file-input dark show-size>
               Upload
-            </v-btn>
+            </v-file-input>
             <div>
               <v-skeleton-loader
                   v-if="loadingFilesList"
