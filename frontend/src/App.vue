@@ -68,7 +68,7 @@
                       v-for="item in filesList"
                       :key="item.id"
                   >
-                    <td><span @click="onItemNameClick" style="cursor: pointer">{{ item.name }}</span></td>
+                    <td><span @click="onItemNameClick(item.id)" style="cursor: pointer">{{ item.name }}</span></td>
                   </tr>
                   </tbody>
                 </template>
@@ -116,6 +116,7 @@ import {
   findAllSummaries,
   create,
   updateFile,
+  findFileBlobById,
 } from "@/services/ifcResourceService";
 import { FileDto } from "@/dtos/FileDto";
 
@@ -165,6 +166,10 @@ export default {
             this.loadingFilesList = false;
           });
     },
+    async downloadFile(fileId) {
+      const { data } = await findFileBlobById(fileId);
+      return new File([data], 'temp');
+    },
     onIfcFileInputChange(file) {
       this.fileToUpload = file;
       if (file) {
@@ -177,8 +182,10 @@ export default {
       }
       this.uploadFile(this.fileToUpload);
     },
-    onItemNameClick() {
-      this.dialogShown = true;
+    onItemNameClick(itemId) {
+      // this.dialogShown = true;
+      this.downloadFile(itemId)
+        .then(this.renderFile);
     },
     /**
      * @param {string} fileName
