@@ -100,7 +100,6 @@ import { IFCLoader } from "web-ifc-three/IFCLoader";
 import { createScene } from "@/services/ifcScripts";
 import {
   findAllSummaries,
-  findFileBlobById,
   create,
   updateFile,
 } from "@/services/ifcResourceService";
@@ -116,6 +115,7 @@ export default {
     filesList: [],
     dialogShown: false,
     loadingIfcFile: true,
+    uploadingFile: false,
   }),
   methods: {
     createScene() {
@@ -137,9 +137,18 @@ export default {
       URL.revokeObjectURL(ifcURL);
     },
     async uploadFile(file) {
-      console.log(file)
+      this.uploadingFile = true;
       const { data } = await create(new FileDto(file.name));
-      return updateFile(data.id, file);
+      await updateFile(data.id, file);
+      await this.findAllFiles();
+      this.uploadingFile = false;
+    },
+    async findAllFiles() {
+      return findAllSummaries()
+          .then(({ data }) => {
+            this.filesList = data;
+            this.loadingFilesList = false;
+          });
     },
     onIfcFileInputChange(file) {
       this.uploadFile(file);
@@ -150,22 +159,7 @@ export default {
     },
   },
   created() {
-    findAllSummaries()
-      .then(({ data }) => {
-        this.filesList = data;
-        this.loadingFilesList = false;
-      });
-
-    findFileBlobById(1).then(({ data }) => {
-      this.loadingIfcFile = false;
-      const ifcBlob = new Blob([data], {type: 'text/plain'});
-      const ifcUrl = URL.createObjectURL(ifcBlob);
-      this.ifcLoader.load(
-          ifcUrl,
-          this.loadIfcModel
-      );
-      URL.revokeObjectURL(ifcUrl);
-    });
+    this.findAllFiles();
   },
   mounted() {
     const wasmPath = '../files/';
