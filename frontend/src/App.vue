@@ -131,7 +131,6 @@ export default {
     },
     onItemNameClick() {
       this.dialogShown = true;
-      console.log('clicked!')
     },
   },
   created() {
