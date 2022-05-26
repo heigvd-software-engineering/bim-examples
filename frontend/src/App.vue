@@ -98,7 +98,13 @@
 <script>
 import { IFCLoader } from "web-ifc-three/IFCLoader";
 import { createScene } from "@/services/ifcScripts";
-import {findAllSummaries, findFileBlobById} from "@/services/ifcResourceService";
+import {
+  findAllSummaries,
+  findFileBlobById,
+  create,
+  updateFile,
+} from "@/services/ifcResourceService";
+import { FileDto } from "@/dtos/FileDto";
 
 export default {
   name: 'App',
@@ -122,12 +128,22 @@ export default {
       this.scene.add(ifcModel);
       this.ifcModel = ifcModel;
     },
-    onIfcFileInputChange(file) {
+    renderFile(file) {
       const ifcURL = URL.createObjectURL(file);
       this.ifcLoader.load(
           ifcURL,
           this.loadIfcModel
       );
+      URL.revokeObjectURL(ifcURL);
+    },
+    async uploadFile(file) {
+      console.log(file)
+      const { data } = await create(new FileDto(file.name));
+      return updateFile(data.id, file);
+    },
+    onIfcFileInputChange(file) {
+      this.uploadFile(file);
+      this.renderFile(file);
     },
     onItemNameClick() {
       this.dialogShown = true;
