@@ -27,7 +27,11 @@
               md="9"
               style="background-color: #333333"
           >
-            <v-file-input dark show-size>
+            <v-file-input
+                dark
+                show-size
+                accept=".ifc"
+            >
               Upload
             </v-file-input>
             <div>
