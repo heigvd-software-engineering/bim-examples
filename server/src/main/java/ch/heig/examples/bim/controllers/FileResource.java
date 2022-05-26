@@ -33,7 +33,10 @@ public class FileResource {
     @Transactional
     public Response create(FileDto dto) {
         FileEntity entity = fileService.createEntity(dto);
-        return Response.created(URI.create("/files/" + entity.id)).build();
+        return Response.status(Response.Status.CREATED)
+                .entity(entity)
+                .location(URI.create("/files/" + entity.id))
+                .build();
     }
 
     @GET
