@@ -27,12 +27,14 @@
               md="9"
               style="background-color: #333333"
           >
-            <v-btn
-                type="submit"
-                color="primary"
+            <v-file-input
+                dark
+                show-size
+                accept=".ifc"
+                @change="onIfcFileInputChange"
             >
               Upload
-            </v-btn>
+            </v-file-input>
             <div>
               <v-skeleton-loader
                   v-if="loadingFilesList"
@@ -58,15 +60,7 @@
                 </template>
               </v-simple-table>
             </div>
-            <div class="fill-height">
-              <input
-                  type="file"
-                  name="load"
-                  class="file-input"
-                  @change="onIfcFileInputChange"
-              />
-              <canvas id="scene3d" ref="scene3d"></canvas>
-            </div>
+            <canvas id="scene3d" ref="scene3d"></canvas>
             <v-dialog
                 v-model="dialogShown"
                 width="500"
@@ -104,7 +98,12 @@
 <script>
 import { IFCLoader } from "web-ifc-three/IFCLoader";
 import { createScene } from "@/services/ifcScripts";
-import {findAllSummaries, findFileBlobById} from "@/services/ifcResourceService";
+import {
+  findAllSummaries,
+  create,
+  updateFile,
+} from "@/services/ifcResourceService";
+import { FileDto } from "@/dtos/FileDto";
 
 export default {
   name: 'App',
@@ -116,6 +115,7 @@ export default {
     filesList: [],
     dialogShown: false,
     loadingIfcFile: true,
+    uploadingFile: false,
   }),
   methods: {
     createScene() {
@@ -128,36 +128,52 @@ export default {
       this.scene.add(ifcModel);
       this.ifcModel = ifcModel;
     },
-    onIfcFileInputChange(changed) {
-      const [ file ] = changed.target.files;
+    renderFile(file) {
       const ifcURL = URL.createObjectURL(file);
       this.ifcLoader.load(
           ifcURL,
           this.loadIfcModel
       );
+      URL.revokeObjectURL(ifcURL);
+    },
+    async uploadFile(file) {
+      this.uploadingFile = true;
+      const { data } = await create(new FileDto(this.trimIfcFileExtension(file.name)));
+      await updateFile(data.id, file);
+      await this.findAllFiles();
+      this.uploadingFile = false;
+    },
+    async findAllFiles() {
+      return findAllSummaries()
+          .then(({ data }) => {
+            this.filesList = data;
+            this.loadingFilesList = false;
+          });
+    },
+    onIfcFileInputChange(file) {
+      this.uploadFile(file);
+      this.renderFile(file);
     },
     onItemNameClick() {
       this.dialogShown = true;
-      console.log('clicked!')
+    },
+    /**
+     * @param {string} fileName
+     */
+    trimIfcFileExtension(fileName) {
+      if (!fileName.endsWith('.ifc')) {
+        throw new Error('File should be an .ifc file!');
+      }
+      const extensionIndex = fileName.lastIndexOf('.ifc');
+      const nameWithoutExtension = fileName.slice(0, extensionIndex);
+      if (nameWithoutExtension.trim() === '') {
+        throw new Error('File name should not be empty!');
+      }
+      return nameWithoutExtension;
     },
   },
   created() {
-    findAllSummaries()
-      .then(({ data }) => {
-        this.filesList = data;
-        this.loadingFilesList = false;
-      });
-
-    findFileBlobById(1).then(({ data }) => {
-      this.loadingIfcFile = false;
-      const ifcBlob = new Blob([data], {type: 'text/plain'});
-      const ifcUrl = URL.createObjectURL(ifcBlob);
-      this.ifcLoader.load(
-          ifcUrl,
-          this.loadIfcModel
-      );
-      URL.revokeObjectURL(ifcUrl);
-    });
+    this.findAllFiles();
   },
   mounted() {
     const wasmPath = '../files/';
@@ -180,10 +196,5 @@ h1, h2, h3, h4, h5, h6 {
   width: 100%;
   height: 100%;
   display: block;
-}
-
-.file-input {
-  z-index: 1;
-  position: absolute;
 }
 </style>
