@@ -20,9 +20,12 @@ class HttpClient {
     /**
      * @param {string} url
      * @param {any} body
+     * @param {Object} headers
      */
-    async put(url, body) {
-        return axios.put(url, body);
+    async put(url, body, headers = {}) {
+        return axios.put(url, body, {
+            headers,
+        });
     }
 }
 
