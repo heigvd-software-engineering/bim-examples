@@ -138,7 +138,7 @@ export default {
     },
     async uploadFile(file) {
       this.uploadingFile = true;
-      const { data } = await create(new FileDto(file.name));
+      const { data } = await create(new FileDto(this.trimIfcFileExtension(file.name)));
       await updateFile(data.id, file);
       await this.findAllFiles();
       this.uploadingFile = false;
@@ -156,6 +156,20 @@ export default {
     },
     onItemNameClick() {
       this.dialogShown = true;
+    },
+    /**
+     * @param {string} fileName
+     */
+    trimIfcFileExtension(fileName) {
+      if (!fileName.endsWith('.ifc')) {
+        throw new Error('File should be an .ifc file!');
+      }
+      const extensionIndex = fileName.lastIndexOf('.ifc');
+      const nameWithoutExtension = fileName.slice(0, extensionIndex);
+      if (nameWithoutExtension.trim() === '') {
+        throw new Error('File name should not be empty!');
+      }
+      return nameWithoutExtension;
     },
   },
   created() {
