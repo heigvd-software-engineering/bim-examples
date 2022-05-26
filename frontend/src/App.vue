@@ -31,6 +31,7 @@
                 dark
                 show-size
                 accept=".ifc"
+                @change="onIfcFileInputChange"
             >
               Upload
             </v-file-input>
@@ -59,15 +60,7 @@
                 </template>
               </v-simple-table>
             </div>
-            <div class="fill-height">
-              <input
-                  type="file"
-                  name="load"
-                  class="file-input"
-                  @change="onIfcFileInputChange"
-              />
-              <canvas id="scene3d" ref="scene3d"></canvas>
-            </div>
+            <canvas id="scene3d" ref="scene3d"></canvas>
             <v-dialog
                 v-model="dialogShown"
                 width="500"
@@ -129,8 +122,7 @@ export default {
       this.scene.add(ifcModel);
       this.ifcModel = ifcModel;
     },
-    onIfcFileInputChange(changed) {
-      const [ file ] = changed.target.files;
+    onIfcFileInputChange(file) {
       const ifcURL = URL.createObjectURL(file);
       this.ifcLoader.load(
           ifcURL,
@@ -181,10 +173,5 @@ h1, h2, h3, h4, h5, h6 {
   width: 100%;
   height: 100%;
   display: block;
-}
-
-.file-input {
-  z-index: 1;
-  position: absolute;
 }
 </style>
