@@ -37,6 +37,10 @@
               Upload
             </v-file-input>
             <div>
+              <v-text-field
+                  v-model="fileName"
+                  placeholder="What's the name of your uploaded file?"
+              ></v-text-field>
               <v-btn
                   color="primary"
                   :disabled="fileToUpload == null"
@@ -138,6 +142,7 @@ export default {
     loadingIfcFile: true,
     uploadingFile: false,
     fileToUpload: null,
+    fileName: '',
   }),
   methods: {
     createScene() {
@@ -160,7 +165,11 @@ export default {
     },
     async uploadFile(file) {
       this.uploadingFile = true;
-      const { data } = await create(new FileDto(this.trimIfcFileExtension(file.name)));
+      let uploadedFileName = this.trimIfcFileExtension(file.name);
+      if (this.fileName.trim() !== '') {
+        uploadedFileName = this.fileName;
+      }
+      const { data } = await create(new FileDto(uploadedFileName));
       await updateFile(data.id, file);
       await this.findAllFiles();
       this.uploadingFile = false;
