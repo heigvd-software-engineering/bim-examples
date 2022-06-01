@@ -11,6 +11,6 @@ public class FileEntity extends PanacheEntity {
     public String name;
     public Date creationDate;
     public Date lastUpdate;
-    @Column(columnDefinition = "BLOB")
+    @Column(columnDefinition = "LONGBLOB")
     public byte[] file;
 }
