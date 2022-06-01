@@ -54,7 +54,10 @@
                   v-if="loadingFilesList"
                   type="table"
               ></v-skeleton-loader>
-              <v-simple-table v-else>
+              <v-simple-table
+                  v-else
+                  dark
+              >
                 <template v-slot:default>
                   <thead>
                   <tr>
