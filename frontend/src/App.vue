@@ -32,7 +32,7 @@
             >
               Upload
             </v-file-input>
-            <div>
+            <div class="py-3">
               <v-text-field
                   v-model="fileName"
                   placeholder="What's the name of your uploaded file?"
@@ -50,7 +50,7 @@
                   color="primary"
               ></v-progress-circular>
             </div>
-            <div>
+            <div class="py-3">
               <v-skeleton-loader
                   v-if="loadingFilesList"
                   type="table"
