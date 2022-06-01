@@ -55,29 +55,31 @@
                   v-if="loadingFilesList"
                   type="table"
               ></v-skeleton-loader>
-              <v-simple-table
-                  v-else
-                  fixed-header
-                  height="500px"
-              >
-                <template v-slot:default>
-                  <thead>
-                  <tr>
-                    <th class="text-left">
-                      Name
-                    </th>
-                  </tr>
-                  </thead>
-                  <tbody>
-                  <tr
-                      v-for="item in filesList"
-                      :key="item.id"
-                  >
-                    <td><span @click="onItemNameClick(item.id)" style="cursor: pointer">{{ item.name }}</span></td>
-                  </tr>
-                  </tbody>
-                </template>
-              </v-simple-table>
+              <div v-else>
+                <h3>Click on a row to load in view</h3>
+                <v-simple-table
+                    fixed-header
+                    height="500px"
+                >
+                  <template v-slot:default>
+                    <thead>
+                    <tr>
+                      <th class="text-left">
+                        Name
+                      </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr
+                        v-for="item in filesList"
+                        :key="item.id"
+                    >
+                      <td @click="onItemNameClick(item.id)" style="cursor: pointer"><span>{{ item.name }}</span></td>
+                    </tr>
+                    </tbody>
+                  </template>
+                </v-simple-table>
+              </div>
             </div>
           </v-col>
           <v-col
