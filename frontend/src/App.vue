@@ -58,7 +58,7 @@
               <v-simple-table
                   v-else
                   fixed-header
-                  height="300px"
+                  height="500px"
               >
                 <template v-slot:default>
                   <thead>
