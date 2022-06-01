@@ -5,6 +5,7 @@ import {
     GridHelper,
     PerspectiveCamera,
     Scene,
+    Color,
     WebGLRenderer,
 } from "three";
 import {
@@ -19,6 +20,7 @@ import {
 export function createScene(domCanvas) {
     //Creates the Three.js scene
     const scene = new Scene();
+    scene.background = new Color(0xe5e5e5);
 
     //Object to store the size of the viewport
     const size = {
