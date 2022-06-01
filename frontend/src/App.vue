@@ -22,8 +22,7 @@
       <v-container>
         <v-row>
           <v-col
-              cols="12"
-              md="9"
+              cols="4"
           >
             <v-file-input
                 show-size
@@ -80,7 +79,6 @@
                 </template>
               </v-simple-table>
             </div>
-            <canvas id="scene3d" ref="scene3d"></canvas>
             <v-dialog
                 v-model="dialogShown"
                 width="500"
@@ -108,6 +106,11 @@
                 </v-card-actions>
               </v-card>
             </v-dialog>
+          </v-col>
+          <v-col
+            cols="8"
+          >
+            <canvas id="scene3d" ref="scene3d"></canvas>
           </v-col>
         </v-row>
       </v-container>
