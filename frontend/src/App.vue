@@ -31,6 +31,7 @@
                 dark
                 show-size
                 accept=".ifc"
+                label="Select an IFC file to visualize"
                 @change="onIfcFileInputChange"
             >
               Upload
