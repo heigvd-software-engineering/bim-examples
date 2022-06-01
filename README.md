@@ -29,6 +29,7 @@ quarkus dev
 # Run web app
 cd ../frontend
 npm install
+npm run preserve
 npm run serve
 ```
 
