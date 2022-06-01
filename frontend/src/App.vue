@@ -3,7 +3,6 @@
     <v-app-bar
       app
       color="primary"
-      dark
     >
       <div class="d-flex align-center">
         <v-img
@@ -25,10 +24,8 @@
           <v-col
               cols="12"
               md="9"
-              style="background-color: #333333"
           >
             <v-file-input
-                dark
                 show-size
                 accept=".ifc"
                 label="Select an IFC file to visualize"
@@ -61,7 +58,6 @@
               ></v-skeleton-loader>
               <v-simple-table
                   v-else
-                  dark
                   fixed-header
                   height="300px"
               >
@@ -229,14 +225,6 @@ export default {
 </script>
 
 <style>
-#app {
-  background-color: #121212;
-}
-
-h1, h2, h3, h4, h5, h6 {
-  color: rgba(255, 255, 255, 0.7);
-}
-
 #scene3d {
   width: 100%;
   height: 100%;
