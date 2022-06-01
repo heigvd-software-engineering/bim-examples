@@ -1,40 +1,35 @@
-# BIMDEMO
+# bim-examples
 
-This project is a proof of concept for a data to visualization for the building domain.
+This project is a proof of concept.
 
-We start from simple data such as:
-
-- width
-- height
-- length
-
-From this data, we want to generate a very simple IFC structure (such as a slab) that we can then give to an IFC viewer.
-
-To recap the targetted workflow:
-
-data ==> IFC string ==> give string to IFC viewer.
+It's goal is to have an application to visualize IFC files in a 3D viewer and upload them to a database.
 
 ## Folder structure
 
-Quick explanation of the folder content.
+You can find the following folders in this repository's root folder:
 
-- frontend folder: Vue app containing the 3D viewer and a client side writer attempt.
-- server folder: attempt to have an IFC writer on the server side. Currently on pause due to a bug in the `web-ifc` library.
-
-## Current state
-
-We can generate an IFC structure containing a slab. This structure is then loaded by the IFC js loader and rendered in a 3D viewer.
-We can choose the length of the sides of the slab.
+- client: a Vue 3 + Typescrypt example of a webapp that can show an IFC file 3D model in a 3D scene. It's not as complete as "frontend" for development time reasons. It was created to have a basis for a Vue 3 project.
+- frontend: Vue app allowing a user to visualize IFC files in a 3D view and upload them to a database.
+- server: Simple API to store and access IFC files.
 
 ## How to run it
 
 From this folder, run the following commands:
 
 ```shell
-cd frontend
+# Run database container
+cd docker/database
+docker-compose up -d
+
+# Run API server
+cd ../../server
+mvn clean install
+quarkus dev
+
+# Run web app
+cd ../frontend
 npm install
-npm run preserve
 npm run serve
 ```
 
-The frontend should now run on `localhost:8080`.
+You should be able to access the frontend at `localhost:8081`.
